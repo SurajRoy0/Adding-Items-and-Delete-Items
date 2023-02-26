@@ -1,11 +1,15 @@
 var form = document.querySelector('#addForm');
 var itemList = document.querySelector('#items');
+var filter = document.querySelector('#filter');
 
-//Adiing Items
+//Adiing Items Event
 form.addEventListener('submit',addItem);
 
-//Removing Items
+//Removing Items Event
 itemList.addEventListener('click',removeItem);
+
+//Filtering Event
+filter.addEventListener('keyup',filterItems);
 
 //Adding Items
 function addItem(e){
@@ -53,5 +57,30 @@ function removeItem(e){
             itemList.removeChild(deleteItem);
         }
     }
+}
+
+
+//Filerting Items
+function filterItems(e){
+    var text = e.target.value.toLowerCase();
+    var items = itemList.querySelectorAll('li');
+    
+    //converting to an Array
+    var item = Array.from(items);
+    // item.forEach(function(item){
+    //     var itemName = item.firstChild.textContent;
+    //     console.log(item);
+    // })
+
+    for(i of item){
+        let itemText = i.firstChild.textContent;
+        if(itemText.toLowerCase().indexOf(text) != -1){
+            i.style.display = 'block';
+        }
+        else{
+            i.style.display = 'none'; 
+        }
+    }
+
 }
 
