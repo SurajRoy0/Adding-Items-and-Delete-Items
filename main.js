@@ -15,9 +15,10 @@ filter.addEventListener('keyup',filterItems);
 function addItem(e){
     e.preventDefault();
     var itemValue = document.querySelector('#inputText').value;
-    if(itemValue==''){
+    var desValue = document.querySelector('#inputDes').value;
+    if(itemValue=='' || desValue==''){
         var alertDiv = document.createElement('div');
-        var alertText = document.createTextNode('Please Enter Something to Add New Item');
+        var alertText = document.createTextNode('Please Enter Item and The Description');
         alertDiv.appendChild(alertText);
         alertDiv.className='alertTextColor'
         var cardDiv = document.querySelector('#main');
@@ -27,8 +28,16 @@ function addItem(e){
         //Creating New List
     var newItem = document.createElement('li');
     newItem.className='list-group-item';
+
     var itemText = document.createTextNode(itemValue);
     newItem.appendChild(itemText);
+
+    var space = document.createTextNode(' ');
+    newItem.appendChild(space);
+
+    var itemDes = document.createTextNode(desValue);
+    newItem.appendChild(itemDes);
+
 
     //Creating Delete Button
     var deleteBtn =  document.createElement('Button');
@@ -67,6 +76,7 @@ function filterItems(e){
     
     //converting to an Array
     var item = Array.from(items);
+
     // item.forEach(function(item){
     //     var itemName = item.firstChild.textContent;
     //     console.log(item);
@@ -74,7 +84,10 @@ function filterItems(e){
 
     for(i of item){
         let itemText = i.firstChild.textContent;
-        if(itemText.toLowerCase().indexOf(text) != -1){
+        let des  = i.childNodes[1].textContent;
+
+
+        if((itemText.toLowerCase().indexOf(text) != -1) || (des.toLowerCase().indexOf(text) != -1)){
             i.style.display = 'block';
         }
         else{
